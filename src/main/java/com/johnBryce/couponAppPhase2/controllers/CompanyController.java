@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -60,7 +61,12 @@ public class CompanyController extends ClientController {
         System.out.println("print all coupons initiated");
         if (tokenManager.isTokenExist(token)){
             List<Coupon> coupons = companyService.getAllCouponsInCompany();
-            return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
+            List<String> stringedCoupons = new ArrayList<>();
+            for (Coupon c:coupons){
+                stringedCoupons.add(c.toString());
+            }
+            return new ResponseEntity<List<String>>(stringedCoupons,HttpStatus.OK);
+            //  return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("fetching coupons failed",HttpStatus.BAD_REQUEST);
     }
@@ -71,7 +77,12 @@ public class CompanyController extends ClientController {
         System.out.println("print coupons category initiated");
         if (tokenManager.isTokenExist(token)){
             List<Coupon> coupons = companyService.getAllCompnyCouponsOfOneCategory(category);
-            return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
+            List<String> stringedCoupons = new ArrayList<>();
+            for (Coupon c:coupons){
+                stringedCoupons.add(c.toString());
+            }
+            return new ResponseEntity<List<String>>(stringedCoupons,HttpStatus.OK);
+            //  return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("fetching coupons failed",HttpStatus.BAD_REQUEST);
 
@@ -84,7 +95,12 @@ public class CompanyController extends ClientController {
         System.out.println("print coupons by price initiated");
         if (tokenManager.isTokenExist(token)){
             List<Coupon> coupons = companyService.getAllCouponsByPrice(maxPrice);
-            return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
+            List<String> stringedCoupons = new ArrayList<>();
+            for (Coupon c:coupons){
+                stringedCoupons.add(c.toString());
+            }
+            return new ResponseEntity<List<String>>(stringedCoupons,HttpStatus.OK);
+          //  return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("fetching coupons failed",HttpStatus.BAD_REQUEST);
 

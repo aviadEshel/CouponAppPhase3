@@ -15,19 +15,15 @@ public class Coupon {
 	@Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
-	//@Column(name="company_id")
-	//@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 
-
-	//@OneToOne(fetch = FetchType.EAGER ,cascade = CascadeType.ALL, mappedBy = "company")
-
-
-	
 	@Column(name = "category")
-	@Enumerated(EnumType.ORDINAL)// we have a problem updating the enum
+	@Enumerated(EnumType.ORDINAL)
     private Category category;
-	
-	@Column(name = "title")
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    private Company company;
+
+    @Column(name = "title")
     private String title;
 	@Column(name = "description")
     private String description;
@@ -46,13 +42,6 @@ public class Coupon {
 	
 	@Column(name = "image")
     private String image;
-
-    @ManyToOne (fetch = FetchType.EAGER
-//    , cascade = {
-//            CascadeType.REFRESH
-//    }
-    )
-    private Company company;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "customers_coupons" ,joinColumns = @JoinColumn(name = "coupon_id"),

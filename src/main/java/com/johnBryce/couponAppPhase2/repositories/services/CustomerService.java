@@ -59,8 +59,6 @@ public class CustomerService extends ClientService {
 
 
     public boolean couponPurchaseByCustomer(Coupon coupon) {
-     //   boolean flag =false;
-
         Date testDate = new Date(System.currentTimeMillis());
         try {
             if (thisCustomer.getPurchasedCoupons()!=null){
@@ -74,15 +72,12 @@ public class CustomerService extends ClientService {
                 if ((coupon.getAmount() <= 0) || (coupon.getEndDate().before(testDate))) {
                     System.out.println("coupon " + coupon.getTitle() + " out of inventory or out of date");
                     return false;
-                } else {
-
+                } else
+                    {
                  thisCustomer.addCupon(coupon);
                  coupon.addCustomer(thisCustomer);
                  coupon.setAmount(coupon.getAmount() - 1);
                  couponRepository.save(coupon);
-               //  customerRepository.save(thisCustomer);
-
-                  //  flag =true;
                     return true;
                 }
         } catch (Exception e) {
@@ -92,10 +87,7 @@ public class CustomerService extends ClientService {
         return false;
     }
 
-
-
     public List<Coupon> getAllCoupons() {
-
         try {
             return customerRepository.findById(customerID).getPurchasedCoupons();
         } catch (Exception e) {
@@ -105,17 +97,13 @@ public class CustomerService extends ClientService {
        return null;
     }
 
-
-//////////////////////////////////////////  need join query here --> customer join coupons
     public ArrayList<Coupon> getAllCouponsByCategory(Category category)  {
-
         try {
         ArrayList<Coupon> categoryList = new ArrayList<>() ;
             for (Coupon coupon:customerRepository.findById(customerID).getPurchasedCoupons()){
                 if (coupon.getCategory()==category){
                     categoryList.add(coupon);
                 }
-
             }
             return categoryList;
         } catch (Exception e) {
@@ -125,7 +113,6 @@ public class CustomerService extends ClientService {
         return null;
     }
 
-//////////////////////////////////////////  need join query here --> customer join coupons
     public ArrayList<Coupon> getAllCouponsByMaxPrice(Double maxPrice)  {
        try {
         ArrayList<Coupon> byPriceList = new ArrayList<>() ;
@@ -135,28 +122,27 @@ public class CustomerService extends ClientService {
                 }
             }
             return byPriceList;
-
-        } catch (Exception e) {
+        }
+       catch (Exception e) {
             System.out.println(e.toString()+"\n" +
             "customer: get All Coupons By max price failed");
         }
         return null;
     }
+
     public boolean deleteCouponPurchase(long id){
         boolean flag =false;
         try {
            Coupon coupon = couponRepository.findById(id);
-           if (coupon.getId()>0) {
+
                if (thisCustomer.getPurchasedCoupons().contains(coupon)){
                    thisCustomer.getPurchasedCoupons().remove(coupon);
                    coupon.getCustomerPurchase().remove(thisCustomer);
-
+                   coupon.setAmount(coupon.getAmount()+1);
                    couponRepository.save(coupon);
                    customerRepository.save(thisCustomer);
                    flag= true;
-               }
            }
-
         }catch (Exception  e) {
             System.out.println(e.toString()+"\n" +
                     "customer: get Customer Details failed");

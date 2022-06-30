@@ -1,28 +1,22 @@
 package com.johnBryce.couponAppPhase2.entities;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 @Entity
 @Table(name="companies")
-
-
-
 public class Company {
+
 	@Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@OneToOne(fetch = FetchType.EAGER, mappedBy = "coupon")
-//	@JoinColumn(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id  ;
 	
 	@Column(name="name", updatable = false, unique = true)
     private String Name;
 	
 	@Column(name="email", unique = true)
-private     String email;
+    private     String email;
 	
 	@Column(name="password")
     private String password;
