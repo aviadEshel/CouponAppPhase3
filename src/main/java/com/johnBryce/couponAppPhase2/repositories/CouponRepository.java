@@ -22,9 +22,6 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
 
     ArrayList<Coupon> findAllByCategoryAndCompany_id(Category category, long companyID);
 
-
-
-
     ArrayList<Coupon> findAllByPriceLessThanEqualAndCompany_id(double maxPrice, long companyID);
 
     Coupon findByCompany_idAndDescription(long id , String description);

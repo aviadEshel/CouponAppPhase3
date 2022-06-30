@@ -19,15 +19,20 @@ public class AdminService extends ClientService {
 
     @Override
     public boolean login(String email, String password,String role) {
-        if ((ROLE.equals(role))&&(email.equals(EMAIL)) && (password.equals(PASSWORD))) return true;{
+        if ((role.equals(ROLE))&&(email.equals(EMAIL)) && (password.equals(PASSWORD))) {
+            return true;
         }
+
             return false;
     }
     // checked and is good
     public Company addNewCompany(Company company)  {
+
         try {
-        companyRepository.save(company);
-            return  companyRepository.findByEmailAndPassword(company.getEmail(),company.getPassword());
+            if (companyRepository.findByEmailAndPassword(company.getEmail(),company.getPassword())==null) {
+                company = companyRepository.save(company);
+                return company;
+            } else return null;
 
         }catch (Exception e){
             System.out.println(e.toString()+"\n" +
@@ -85,7 +90,7 @@ try{
     public List<Company> getAllCompanys()  {
         try {
             return companyRepository.findAll();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             System.out.println(e.toString()+"\n" +
                     "admin: get All Companies failed");
         }
@@ -108,11 +113,14 @@ try{
 
     public Customer addCustomer(Customer customer)  {
 
-        try {
-            customerRepository.save(customer);
-            return  customerRepository.findByEmailAndPassword(customer.getEmail(),customer.getPassword());
 
-        } catch (Exception e) {
+            try {
+                if (customerRepository.findByEmailAndPassword(customer.getEmail(),customer.getPassword())==null) {
+                    customer = customerRepository.save(customer);
+                    return customer;
+                } else return null;
+
+            } catch (Exception e) {
             System.out.println(e.toString()+"\n" +
                     "admin: adding Customer failed");
         }
@@ -170,7 +178,8 @@ try{
 
         try {
             return customerRepository.findAll();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println(e.toString()+"\n" +
                     "admin: get all Customers failed");
         }

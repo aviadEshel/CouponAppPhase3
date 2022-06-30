@@ -164,9 +164,8 @@ public class CustomerService extends ClientService {
         return flag;
     }
 
-
-    public Customer getCustomerDetails() {
-
-            return thisCustomer;
+    public Customer getCustomerDetails(){
+        return thisCustomer;
     }
+
 }

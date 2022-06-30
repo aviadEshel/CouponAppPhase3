@@ -1,7 +1,9 @@
 package com.johnBryce.couponAppPhase2.controllerVerifacationTools;
 
-import java.util.*;
+import org.springframework.stereotype.Component;
 
+import java.util.*;
+@Component
 public class TokenManager {
     private static final long EXPIRATION_TIME_PERIOD_IN_MILLIS = 1000*60*10; //10 min
     private static final long EXPIRATION_THREAD_PERIOD_IN_MILLIS = 1000*5; //5 seconds

@@ -5,12 +5,14 @@ import com.johnBryce.couponAppPhase2.entities.Company;
 import com.johnBryce.couponAppPhase2.entities.Coupon;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class CompanyService extends ClientService {
-    private long companyID = -1;
-    private Company thisCompany;
+    private static long companyID = -1;
+    private static Company thisCompany;
 
     public long getCompanyID() {
         return companyID;
@@ -52,9 +54,11 @@ public class CompanyService extends ClientService {
     public Coupon addCouponToCompany(Coupon coupon) {
 
         coupon.setCompany(thisCompany);
+        coupon.setStartDate(new Date(System.currentTimeMillis()));
+        coupon.setEndDate( new Date(System.currentTimeMillis()+ TimeUnit.DAYS.toMillis(90)));
         try {
-            couponRepository.save(coupon);
-            return couponRepository.findByCompany_idAndDescription(companyID, coupon.getDescription());
+           coupon= couponRepository.save(coupon);
+            return coupon;
         } catch ( Exception  e) {
             System.out.println(e.toString()+"\n" +
                     "company: adding coupon failed");
@@ -88,14 +92,20 @@ public class CompanyService extends ClientService {
         boolean flag = false;
         try {
             Coupon c = couponRepository.findById(couponID);
-            if (c.getCompany().getId()==companyID) {
-                thisCompany.getCoupons().remove(c);
-                c.setCompany(null);
-                c.deleteAllCustomers();
-                couponRepository.save(c);
-                couponRepository.deleteById(couponID);
+//            if (c.getCompany().getId()==companyID) {
+            c.deleteAllCustomers();
+//            thisCompany.getCoupons().remove(c);
+            c.setCompany(null);
+            couponRepository.save(c);
+            couponRepository.deleteById(couponID);
+
+
+
                 flag = true;
-            }
+//            }
+//            else if (c.getCompany().getId()==null){
+//                couponRepository.deleteById(couponID);
+//            flag=true;}
 // to add a sout that coupon id not in this company?
         } catch (Exception e) {
             System.out.println(e.toString()+"\n" +
@@ -148,10 +158,10 @@ public class CompanyService extends ClientService {
         }
         return null;
     }
-
-    public Company getCompanyDetails()  {
-            return thisCompany;
-
+    public Company getCompanyDetails(){
+        return thisCompany;
     }
+
+
 
 }

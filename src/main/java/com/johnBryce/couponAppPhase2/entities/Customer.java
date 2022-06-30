@@ -47,9 +47,6 @@ public class Customer {
     public Customer() {
         super();
     }
-    public Customer(Customer customer){
-        customer = new Customer();
-    }
 
 
     public Customer(String email, String password) {
@@ -77,7 +74,7 @@ public class Customer {
 //    }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

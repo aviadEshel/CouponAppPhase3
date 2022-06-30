@@ -18,6 +18,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long>  {
 void deleteById(long id);
 
 
+
 //    @Modifying
 //    @Query(value = "update sql11454997.companies u  set " +
 //            " u.email = :email ," +
