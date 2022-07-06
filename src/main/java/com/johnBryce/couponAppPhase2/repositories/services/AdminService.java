@@ -18,8 +18,8 @@ public class AdminService extends ClientService {
 
 
     @Override
-    public boolean login(String email, String password,String role) {
-        if ((role.equals(ROLE))&&(email.equals(EMAIL)) && (password.equals(PASSWORD))) {
+    public boolean login(String email, String password) {
+        if ((email.equals(EMAIL)) && (password.equals(PASSWORD))) {
             return true;
         }
 

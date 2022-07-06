@@ -20,7 +20,7 @@ public class Company {
 	
 	@Column(name="password")
     private String password;
-
+  //  @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             mappedBy = "company")

@@ -32,10 +32,10 @@ public class CustomerService extends ClientService {
 
 
     @Override
-    public boolean login(String email, String password,String role)  {
+    public boolean login(String email, String password)  {
 
         boolean flag = false;
-        if (role.equalsIgnoreCase("customer")){
+
 
 
         try {
@@ -51,9 +51,7 @@ public class CustomerService extends ClientService {
             System.out.println(e.toString()+"\n" +
                     "customer: Customer com.johnBryce.couponAppPhase2.program.dailyJob.login failed");
         }
-        } else {
-            System.out.println("customer com.johnBryce.couponAppPhase2.program.dailyJob.login failed-role dosent match");
-        }
+
         return flag;
     }
 

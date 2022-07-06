@@ -3,12 +3,12 @@ package com.johnBryce.couponAppPhase2.controllerVerifacationTools;
 public class Credentials {
     private String email;
     private String password;
-    private String role;
-    public Credentials(String email, String password, String role) {
+
+    public Credentials(String email, String password) {
         super();
         this.email = email;
         this.password = password;
-        this.role = role;
+
     }
     @Override
     public int hashCode() {
@@ -16,7 +16,6 @@ public class Credentials {
         int result = 1;
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
         return result;
     }
     @Override
@@ -38,16 +37,12 @@ public class Credentials {
                 return false;
         } else if (!password.equals(other.password))
             return false;
-        if (role == null) {
-            if (other.role != null)
-                return false;
-        } else if (!role.equals(other.role))
-            return false;
+
         return true;
     }
     @Override
     public String toString() {
-        return "Credentials [email=" + email + ", pwd=" + password + ", role=" + role + "]";
+        return "Credentials [email=" + email + ", pwd=" + password + ", role=" + "]";
     }
 
     public String getEmail() {
@@ -58,7 +53,5 @@ public class Credentials {
         return password;
     }
 
-    public String getRole() {
-        return role;
-    }
+
 }

@@ -20,6 +20,6 @@ public abstract class ClientService {
     }
 
 
-    public abstract boolean login(String email, String password,String role) ;
+    public abstract boolean login(String email, String password) ;
 
 }

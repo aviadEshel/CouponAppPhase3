@@ -1,5 +1,7 @@
 package com.johnBryce.couponAppPhase2.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class Coupon {
 	@Column(name = "category")
 	@Enumerated(EnumType.ORDINAL)
     private Category category;
-
+@JsonIgnore
     @ManyToOne (fetch = FetchType.EAGER)
     private Company company;
 
@@ -42,7 +44,7 @@ public class Coupon {
 	
 	@Column(name = "image")
     private String image;
-
+@JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "customers_coupons" ,joinColumns = @JoinColumn(name = "coupon_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))

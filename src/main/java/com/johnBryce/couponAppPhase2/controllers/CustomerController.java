@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,7 +22,7 @@ public class CustomerController extends ClientController  {
         if (tokenManager.isTokenExist(token)){
             Coupon temp = companyService.findByTitle(title);
             customerService.couponPurchaseByCustomer(temp);
-            return new ResponseEntity<String>("found coupon:"+temp.toString(),HttpStatus.OK);
+            return new ResponseEntity<String>("found coupon:"+temp,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("coupon purchase failed",HttpStatus.BAD_REQUEST);
     }
@@ -33,12 +32,7 @@ public class CustomerController extends ClientController  {
         System.out.println("printing customer coupons initiated");
         if (tokenManager.isTokenExist(token)){
             List<Coupon> coupons = customerService.getAllCoupons();
-            List<String> stringedCoupons = new ArrayList<>();
-            for (Coupon c:coupons){
-                stringedCoupons.add(c.toString());
-            }
-            return new ResponseEntity<List<String>>(stringedCoupons,HttpStatus.OK);
-            //  return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
+           return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("printing failed",HttpStatus.BAD_REQUEST);
     }
@@ -48,12 +42,7 @@ public class CustomerController extends ClientController  {
         System.out.println("print coupons by price initiated");
         if (tokenManager.isTokenExist(token)){
             List<Coupon> coupons = customerService.getAllCouponsByCategory(category);
-            List<String> stringedCoupons = new ArrayList<>();
-            for (Coupon c:coupons){
-                stringedCoupons.add(c.toString());
-            }
-            return new ResponseEntity<List<String>>(stringedCoupons,HttpStatus.OK);
-            //  return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
+           return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("fetching coupons failed",HttpStatus.BAD_REQUEST);
     }
@@ -63,12 +52,7 @@ public class CustomerController extends ClientController  {
         System.out.println("print coupons by price initiated");
         if (tokenManager.isTokenExist(token)){
             List<Coupon> coupons = customerService.getAllCouponsByMaxPrice(maxPrice);
-            List<String> stringedCoupons = new ArrayList<>();
-            for (Coupon c:coupons){
-                stringedCoupons.add(c.toString());
-            }
-            return new ResponseEntity<List<String>>(stringedCoupons,HttpStatus.OK);
-            //  return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
+           return new ResponseEntity<List<Coupon>>(coupons,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("customer fetching coupons failed",HttpStatus.BAD_REQUEST);
     }
@@ -79,7 +63,7 @@ public class CustomerController extends ClientController  {
         System.out.println("customer details printing initiated");
         if (tokenManager.isTokenExist(token)){
             Customer customer = customerService.getCustomerDetails();
-            return new ResponseEntity<String>(customer.toString(),HttpStatus.OK);
+            return new ResponseEntity<Customer>(customer,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("customer detail failed",HttpStatus.BAD_REQUEST);
     }

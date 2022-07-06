@@ -27,10 +27,8 @@ public class CompanyService extends ClientService {
     }
     //TODO change getcouponbyprice to sql query
     @Override
-    public boolean login(String email, String password,String role)  {
+    public boolean login(String email, String password)  {
         boolean flag = false;
-        if (role.equalsIgnoreCase("company")){
-
 
         try {
             thisCompany = companyRepository.findByEmailAndPassword(email,password);
@@ -43,11 +41,6 @@ public class CompanyService extends ClientService {
                     "company: com.johnBryce.couponAppPhase2.program.dailyJob.login failed");
 
         }
-        }
-     else {
-        System.out.println("company com.johnBryce.couponAppPhase2.program.dailyJob.login failed-role dosent match");
-    }
-
         return flag;
     }
 

@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,7 +40,7 @@ public class AdminController extends ClientController {
             company = adminService.addNewCompany(company);
             if (company.getId() != null) {
 
-                return new ResponseEntity<String>( company.toString() + " was added successfully", HttpStatus.OK);
+                return new ResponseEntity<String>( company + " was added successfully", HttpStatus.OK);
             }
             else return new ResponseEntity<String>("this company was not added to the DB",HttpStatus.BAD_REQUEST);
         }
@@ -54,7 +53,7 @@ public class AdminController extends ClientController {
         if (tokenManager.isTokenExist(token)){
             company = adminService.updateCompany(company,company);
 
-            return new ResponseEntity<String>("company: "+company.toString()+ " updated successfully",HttpStatus.OK);
+            return new ResponseEntity<String>("company: "+company+ " updated successfully",HttpStatus.OK);
         }
         else return new ResponseEntity<String>("this company was not updated",HttpStatus.BAD_REQUEST);
     }
@@ -75,11 +74,9 @@ public class AdminController extends ClientController {
         System.out.println("Got a request (all) from client!");
         if (tokenManager.isTokenExist(token)) {
             List<Company> companies = adminService.getAllCompanys();
-            List<String> stringedCompanies = new ArrayList<>();
-            for (Company c:companies){
-                stringedCompanies.add(c.toString());
-            }
-            return new ResponseEntity<List<String>>(stringedCompanies, HttpStatus.OK);
+
+
+            return new ResponseEntity<List<Company>>(companies, HttpStatus.OK);
         }
        else return new ResponseEntity<String>("No Session!", HttpStatus.BAD_REQUEST);
     }
@@ -90,7 +87,7 @@ public class AdminController extends ClientController {
         System.out.println("admin: print one customer initiated");
         if (tokenManager.isTokenExist(token)){
             Company temp = adminService.getOneCompany((long) companyID);
-            return new ResponseEntity<String>(temp.toString(),HttpStatus.OK);
+            return new ResponseEntity<Company>(temp,HttpStatus.OK);
         }
         else
             return new ResponseEntity<String>("get one Customer failed",HttpStatus.BAD_REQUEST);
@@ -136,11 +133,8 @@ public class AdminController extends ClientController {
         System.out.println("admin: print all customers initiated");
         if (tokenManager.isTokenExist(token)){
             List<Customer> customers = adminService.getAllCustomers();
-            List<String> stringedCustomers = new ArrayList<>();
-            for (Customer c:customers){
-                stringedCustomers.add(c.toString());
-            }
-            return new ResponseEntity<List<String>>(stringedCustomers,HttpStatus.OK);
+
+            return new ResponseEntity<List<Customer>>(customers,HttpStatus.OK);
         }
         else return new ResponseEntity<String>("printing customerts failed",HttpStatus.BAD_REQUEST);
     }
@@ -150,7 +144,7 @@ public class AdminController extends ClientController {
         System.out.println("admin: print one customer initiated");
         if (tokenManager.isTokenExist(token)){
             Customer temp = adminService.getOneCustomer( customerID);
-            return new ResponseEntity<String>(temp.toString(),HttpStatus.OK);
+            return new ResponseEntity<Customer>(temp,HttpStatus.OK);
         }
         else
 
